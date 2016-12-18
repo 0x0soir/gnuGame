@@ -1,6 +1,8 @@
 # gnuGame
 Juego desarrollado para representar las licencias del Software Libre. En este caso utilizando licencia GNU GPL (Licencia Pública General de GNU)
 
+Este proyecto formap arte de Informática y Sociedad como creativo final de la asignatura.
+
 # Ejemplos
 <img src="doc/index.png?raw=true" alt="index.png">
 <img src="doc/juego1.png?raw=true" alt="juego1.png">
@@ -16,4 +18,5 @@ Juego desarrollado para representar las licencias del Software Libre. En este ca
 
 ### Configuración
 Si se desea acceder al panel de administración se debe crear un super usuario:
+
 1. <tt>python manage.py createsuperuser</tt>
