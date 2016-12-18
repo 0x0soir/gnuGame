@@ -1,0 +1,46 @@
+{% if board %}
+<div class="alert alert-info" role="alert">
+    <div class="row">
+        <div class="col-lg-10 pull-left">
+            <h3 class="h3_font_25">{{game}}</h3>
+        </div>
+        <div class="col-lg-2 pull-right" class="padding_top_12">
+            <a href="/server/logout_user/" class="btn btn-warning">Volver a inicio</a>
+        </div>
+    </div>
+</div>
+<br/>
+<div>
+    <div id="overlay" style="display:block;" onclick="return $('#msgBox').html('<span class=\'label label-info \'>No puedes realizar movimientos ya que no estás en la partida.</span>');"></div>
+    <table id="chess_board" cellpadding="0" cellspacing="0">
+        {% for item in board %}
+            {% if forloop.counter0|divisibleby:8 %}
+                <tr>{% endif %}
+            <td id=id_{{ forloop.counter0}} onclick="getID(this);" >
+            {% if item ==  0 %}
+            {% elif item == 1 %}
+                <img src="/static/images/proprietary.png" %}" alt="Cat" width="90%" style="cursor: pointer; {{cat_opacity}}" />
+            {% else %}
+                <img src="/static/images/gpl.png" %}" alt="Mouse" width="90%" style="cursor: pointer; {{mouse_opacity}}"/>
+            </td>
+            {% if forloop.counter|divisibleby:8 or forloop.last %}
+                </tr>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </table>
+    <br>
+    <br>
+</div>
+{% else %}
+<div class="alert alert-danger" role="alert">
+    <div class="row">
+        <div class="col-lg-10 pull-left">
+            <h3 class="h3_font_25">Todavía no existen juegos creados.</h3>
+        </div>
+        <div class="col-lg-2 pull-right" class="padding_top_12">
+            <a href="/server/logout_user/" class="btn btn-warning">Volver a inicio</a>
+        </div>
+    </div>
+</div>
+{% endif %}

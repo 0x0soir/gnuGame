@@ -1,0 +1,7 @@
+Django==1.9.5
+dj_static==0.0.6
+dj_database_url==0.3.0
+psycopg2==2.6.1
+pillow==2.8.2
+static3==0.7.0
+gunicorn==19.6.0

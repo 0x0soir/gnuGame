@@ -1,0 +1,74 @@
+#chess_board {
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.6);
+    margin: 0 auto;
+}
+
+#chess_board td {
+    background : #fff;
+    width  : 80px;
+    height : 80px;
+    text-align : center;
+    vertical-align : middle;
+    user-select: none;
+    font-size: 65px;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+#chess_board tr:nth-child(odd)  td:nth-child(even),
+#chess_board tr:nth-child(even) td:nth-child(odd) {
+    background : #ccc;
+}
+
+.customFooter{
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100%;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.59);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.59);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.59);
+  z-index: 100;
+}
+#msgBox{
+  text-align: center;
+  font-size: 19px;
+  padding: 10px;
+}
+#overlay{
+  display: none;
+  position: absolute;
+  left: 0;
+  width: 640px;
+  height: 640px;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.5);
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+.winner{
+  transition: background 1s ease 0s;
+  background-color: lightgreen;
+}
+.loser{
+  transition: background 1s ease 0s;
+  background-color: lightcoral;
+}
+.canvas_custom{
+  position: fixed; 
+  display: none;
+}
+.h3_font_25{
+  font-size: 25px;
+}
+.padding_top_12{
+  padding-top: 12px;
+}
+.text_center{
+  text-align: center;
+}

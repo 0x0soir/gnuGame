@@ -1,0 +1,40 @@
+{% extends 'server/base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/GPL.css" %}"/>
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+{% endblock extra_js %}
+
+{% block content %}
+
+    <div class="jumbotron text_center">
+        <h1>¡Bienvenido al juego!</h1>
+        <p class="lead">Podrás elegir ser GPL o Proprietary a la hora de iniciar sesión. Cada vez que inicies sesión jugarás una partida distinta.</p>
+        <p><a class="btn btn-lg btn-success" href="/server/register_user/" role="button">¡Comenzar ya!</a></p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+          <h2>Software libre</h2>
+          <p>El objetivo del juego es huir de los cuatro Proprietary. Podrás ir hacia atrás o hacia adelante moviendo de casilla blanca en casilla blanca. <strong>Ganarás si consigues superar en el tablero a los cuatro Proprietary.</strong></p>
+          <p><a class="btn btn-primary" href="#" role="button">Registro »</a></p>
+        </div>
+        <div class="col-lg-4">
+          <h2>Software cerrado</h2>
+          <p>El objetivo del juego es cazar al GPL. Únicamente podrás hacia adelante moviendo de casilla blanca en casilla blanca. <strong>Ganarás si consigues acorralar en el tablero al GPL.</strong></p>
+          <p><a class="btn btn-primary" href="#" role="button">Registro »</a></p>
+        </div>
+        <div class="col-lg-4">
+          <h2>Multijugador</h2>
+          <p>El juego está adaptado para ser multijugador, cuando inicies sesión se te solicitará si quieres ser GPL o Proprietary. Si eres Proprietary tu juego se creará directamente y esperarás a que un GPL se una a tu juego. Si eres GPL automáticamente te unirás a un juego ya creado por un Proprietary.</p>
+          <p><a class="btn btn-primary" href="#" role="button">Iniciar sesión »</a></p>
+        </div>
+    </div>
+<br>
+{% endblock content %}

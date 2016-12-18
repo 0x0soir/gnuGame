@@ -1,0 +1,46 @@
+{% extends "server/base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/GPL.css" %}"/>
+{% endblock extra_css %}
+
+{% block extra_js %}
+
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/confeti.js" %}"></script>
+
+<script type="text/javascript">
+    var myRefresh;
+    function refresh() {
+        $.ajax({
+            url: '/server/show_ajax/',
+            success: function (data) {
+                $('#board').html(data);
+                myRefresh = setTimeout(refresh, 1000);
+            }
+        })
+    }
+</script>
+{% endblock extra_js %}
+
+
+{% block content %}
+<div>
+    <canvas id="canvas" class="canvas_custom"></canvas>
+    <script type="text/javascript">
+        refresh();
+    </script>
+    <div id="board">
+        {% if error %}
+
+        { error}
+
+        {% endif %}
+        Cargando...
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% extends "server/base.html" %}
+{% load staticfiles %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/GPL.css" %}"/>
+{% endblock extra_css %}
+
+{% block extra_js %}
+
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/confeti.js" %}"></script>
+
+<script type="text/javascript">
+    var isMyTurn = false;
+    var myRefresh;
+    var origen = -1;
+    var destino = -1;
+    function refresh() {
+        $.ajax({
+            url: '/server/status_board/',
+            success: function (data) {
+                $('#board').html(data);
+                if (!isMyTurn){
+                    myRefresh = setTimeout(refresh, 2000);
+                }
+            }
+        })
+    }
+    function getID(oObject)
+    {
+        if (origen==-1){
+            if(!$(oObject).has("img").length > 0){
+                $("#msgBox").html("<span class=\"label label-danger\">ORIGEN: Debes seleccionar una casilla no vacia.</span>");
+            } else {
+                origen = oObject.id.substr(3);
+                $("#msgBox").html("<span class=\"label label-success\">ORIGEN: Seleccionado correctamente.</span>");
+            }
+        } else if(destino == -1){
+            if($(oObject).has("img").length > 0){
+                $("#msgBox").html("<span class=\"label label-danger\">DESTINO: Debes seleccionar una casilla vacia.</span>");
+            } else {
+                $("#msgBox").html("<span class=\"label label-success\">DESTINO: seleccionado correctamente.</span>");
+                destino = oObject.id.substr(3);
+                $.ajax({
+                    type: "POST",
+                    url: "/server/move/",
+                    data: {
+                        'origin': origen,
+                        'target': destino,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    success: function(data){
+                        var jsonObj = JSON.parse(data);
+                        if (jsonObj.STATUS==0){
+                            $("#msgBox").html("<span class=\"label label-danger\">"+jsonObj.ERROR+"</span>");
+                        } else {
+                            $("#msgBox").html("");
+                            $("#overlay").fadeIn();
+                            /* Deja de ser mi turno, asi que actualizo para ver movimimentos del contrario*/
+                            refresh();
+                            noEsTurno();
+                        }
+                    },
+                    failure: function(errMsg) {
+                        alert(errMsg);
+                    }
+                })
+                origen = -1;
+                destino = -1;
+            }
+        }
+    }
+    function esTurno(){
+        isMyTurn = true;
+    }
+    function noEsTurno(){
+        isMyTurn = false;
+    }
+</script>
+{% endblock extra_js %}
+
+
+{% block content %}
+<div>
+    <canvas id="canvas" class="canvas_custom"></canvas>
+    <script type="text/javascript">
+        refresh();
+    </script>
+    <div id="board">
+        {% if error %}
+
+        { error}
+
+        {% endif %}
+        Tablero
+    </div>
+</div>
+{% endblock content %}

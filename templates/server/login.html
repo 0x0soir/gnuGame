@@ -1,0 +1,63 @@
+{% extends 'server/base.html' %}
+{% load staticfiles %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static "css/GPL.css" %}"/>
+{% endblock extra_css %}
+
+{% block extra_js %}
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+{% endblock extra_js %}
+
+{% block content %}
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">Login User</h3>
+      </div>
+      <div class="panel-body">
+          {% if user.is_authenticated %}
+                <p>Welcome {{ user.username }} (ID= {{ user.id }})
+                    <a href="{% url 'logout_user' %}">logout_out</a></p>
+            {% else %}
+
+                {% if error %}
+                    <div class="alert alert-danger" role="alert">{{error}}</div>
+                {% endif %}
+
+                {% if confirmation %}
+                    <div class="alert alert-success" role="alert">{{confirmation}}</div>
+                {% endif %}
+                <form id="login_form" method="post" action="/server/login_user/">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre de usuario:</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Introduce tu nombre de usuario">
+                        <small id="emailHelp" class="form-text text-muted">Debes haber registrado una cuenta antes.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Clave de acceso:</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Introduce tu nombre de usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Tipo de jugador:</label>
+                        <select name="gameType" class="form-control">
+                          <option value="proprietary">Proprietary</option>
+                          <option value="gpl">GPL</option>
+                        </select>
+                        <hr>
+                        <small id="emailHelp" class="form-text text-muted">Si seleccionas <strong>"Proprietary"</strong> se te redirigirá a la página de juego y deberás esperar a que un GPL se una a tu juego para poder realizar movimientos.<hr>Si seleccionas <strong>"GPL"</strong> serás redirigido a la página de espera y deberás esperar a que un Proprietary cree un juego para poder unirte a el.</small>
+                    </div>
+                    <hr>
+                    <div class="btn-group" role="group" aria-label="...">
+                      <a href="/server/index" class="btn btn-info">Volver al inicio</a>
+                        <button type="submit" class="btn btn-success">Iniciar sesión</button>
+                    </div>
+                </form>
+            {% endif %}
+      </div>
+    </div>
+
+{% endblock content %}

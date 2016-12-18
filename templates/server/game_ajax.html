@@ -1,0 +1,146 @@
+{% if board %}
+    {% if withoutCat %}
+    <div class="alert alert-info" role="alert">
+        <div class="row">
+            <div class="col-lg-10 pull-left">
+                <h3 class="h3_font_25">Esperando a que se una un GPL al juego...</h3>
+            </div>
+            <div class="col-lg-2 pull-right" class="padding_top_12">
+                <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <script type="text/javascript">
+        noEsTurno();
+    </script>
+    {% else %}
+        {% if winnerCheck == 0 %}
+            {% if amIproprietary == False%}
+            <div class="alert alert-success" role="alert">
+                <div class="row">
+                    <div class="col-lg-10 pull-left">
+                        <h3 class="h3_font_25">¡HAS GANADO! :D</h3>
+                    </div>
+                    <div class="col-lg-2 pull-right" class="padding_top_12">
+                        <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <script type="text/javascript">
+                $("#canvas").fadeIn();
+                $("#body").addClass("winner");
+                esTurno();
+            </script>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                <div class="row">
+                    <div class="col-lg-10 pull-left">
+                        <h3 class="h3_font_25">¡HAS PERDIDO! :(</h3>
+                    </div>
+                    <div class="col-lg-2 pull-right" class="padding_top_12">
+                        <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <script type="text/javascript">
+                $("#body").addClass("loser");
+                esTurno();
+            </script>
+            {% endif %}
+        {% elif winnerCheck == 1 %}
+            {% if amIproprietary == True%}
+            <div class="alert alert-success" role="alert">
+                <div class="row">
+                    <div class="col-lg-10 pull-left">
+                        <h3 class="h3_font_25">¡HAS GANADO! :D</h3>
+                    </div>
+                    <div class="col-lg-2 pull-right" class="padding_top_12">
+                        <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <script type="text/javascript">
+                $("#canvas").fadeIn();
+                $("#body").addClass("winner");
+            </script>
+            {% else %}
+            <div class="alert alert-danger" role="alert">
+                <div class="row">
+                    <div class="col-lg-10 pull-left">
+                        <h3 class="h3_font_25">¡HAS PERDIDO! :(</h3>
+                    </div>
+                    <div class="col-lg-2 pull-right" class="padding_top_12">
+                        <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <script type="text/javascript">
+                $("#body").addClass("loser");
+            </script>
+            {% endif %}
+        {% else %}
+            {% if myTurn == True %}
+                <div class="alert alert-success" role="alert">
+                    <div class="row">
+                        <div class="col-lg-10 pull-left">
+                            <h3>Estado del juego: Es tu turno</h3>
+                        </div>
+                        <div class="col-lg-2 pull-right" class="padding_top_12">
+                            <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <script type="text/javascript">
+                    esTurno();
+                </script>
+            {% else %}
+                <div class="alert alert-warning" role="alert">
+                    <div class="row">
+                        <div class="col-lg-10 pull-left">
+                            <h3>Estado del juego: No es tu turno</h3>
+                        </div>
+                        <div class="col-lg-2 pull-right" class="padding_top_12">
+                            <a href="/server/logout_user/" class="btn btn-danger">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+            {% endif %}
+        {% endif%}
+    {% endif %}
+<div>
+    {% if winnerCheck != -1 %}
+    <div id="overlay" style="display:block;" onclick="return $('#msgBox').html('<span class=\'label label-info \'>No puedes mover ahora, el juego ya ha terminado.</span>');"></div>
+    {% endif %}
+    {% if withoutCat %}
+    <div id="overlay" style="display:block;" onclick="return $('#msgBox').html('<span class=\'label label-info \'>No puedes mover ahora, el juego no ha comenzado.</span>');"></div>
+    {% endif %}
+    <table id="chess_board" cellpadding="0" cellspacing="0">
+        {% for item in board %}
+            {% if forloop.counter0|divisibleby:8 %}
+                <tr>{% endif %}
+            <td id=id_{{ forloop.counter0}} onclick="getID(this);" >
+            {% if item ==  0 %}
+            {% elif item == 1 %}
+                <img src="/static/images/proprietary.png" %}" alt="Cat" width="90%" style="cursor: pointer; {{cat_opacity}}" />
+            {% else %}
+                <img src="/static/images/gpl.png" %}" alt="Mouse" width="90%" style="cursor: pointer; {{mouse_opacity}}"/>
+            </td>
+            {% if forloop.counter|divisibleby:8 or forloop.last %}
+                </tr>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </table>
+    <br>
+    <br>
+</div>
+{% else %}
+empty board
+{% endif %}
