@@ -2,9 +2,9 @@
 Juego desarrollado para representar las licencias del Software Libre. En este caso utilizando licencia GNU GPL (Licencia Pública General de GNU)
 
 # Ejemplos
-<img src="/iSoir/gnuGame/blob/master/doc/index.png?raw=true" alt="index.png">
-<img src="/iSoir/gnuGame/blob/master/doc/juego1.png?raw=true" alt="juego1.png">
-<img src="/iSoir/gnuGame/blob/master/doc/gana.png?raw=true" alt="gana.png">
+<img src="doc/index.png?raw=true" alt="index.png">
+<img src="doc/juego1.png?raw=true" alt="juego1.png">
+<img src="doc/gana.png?raw=true" alt="gana.png">
 
 ### Instalación
 1. Clonar el repositorio
